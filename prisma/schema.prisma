@@ -1,0 +1,66 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model College {
+  id               Int         @id @default(autoincrement())
+  name             String
+  slug             String      @unique
+  location         String
+  feesPerYear      Float
+  averagePlacement Float
+  highestPlacement Float
+  rating           Float
+  cutoffs          Cutoff[]
+  shortlists       Shortlist[]
+  reviews          Review[]
+}
+
+model Cutoff {
+  id          Int     @id @default(autoincrement())
+  collegeId   Int
+  examType    String  // "MHT-CET" or "JEE"
+  branch      String  // e.g., "Computer Science Engineering"
+  category    String  // "OPEN", "OBC", "EBC", "SC", "ST", "TFWS"
+  closingRank Int
+  year        Int
+  college     College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  email        String      @unique
+  passwordHash String
+  name         String?
+  shortlists   Shortlist[]
+  reviews      Review[]
+}
+
+model Shortlist {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  collegeId Int
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, collegeId])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  collegeId Int
+  userId    Int
+  rating    Int      // 1 to 5
+  comment   String
+  createdAt DateTime @default(now())
+  college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, collegeId])
+}
