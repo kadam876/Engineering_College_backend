@@ -16,8 +16,14 @@ app.use((0, cors_1.default)({
 app.use(express_1.default.json());
 app.use("/api", routes_1.default);
 app.use("/", routes_1.default);
-app.use((_req, res) => {
-    res.status(404).json({ error: "Route not found" });
+app.use((req, res) => {
+    res.status(404).json({
+        error: "Route not found",
+        method: req.method,
+        url: req.url,
+        path: req.path,
+        originalUrl: req.originalUrl
+    });
 });
 app.listen(port, () => {
     console.log(`API listening on http://localhost:${port}`);
