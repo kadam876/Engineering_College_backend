@@ -108,7 +108,7 @@ export async function compareColleges(req: Request, res: Response) {
 
 // ─── Get College Reviews ──────────────────────────────────────────────────────
 export async function getCollegeReviews(req: Request, res: Response) {
-  const collegeId = Number.parseInt(req.params.id, 10);
+  const collegeId = Number.parseInt(String(req.params.id), 10);
   if (!Number.isFinite(collegeId) || collegeId < 1) {
     return res.status(400).json({ error: "Invalid college id" });
   }
@@ -126,7 +126,7 @@ export async function getCollegeReviews(req: Request, res: Response) {
 
 // ─── Add College Review ───────────────────────────────────────────────────────
 export async function addCollegeReview(req: Request, res: Response) {
-  const collegeId = Number.parseInt(req.params.id, 10);
+  const collegeId = Number.parseInt(String(req.params.id), 10);
   if (!Number.isFinite(collegeId) || collegeId < 1) {
     return res.status(400).json({ error: "Invalid college id" });
   }
