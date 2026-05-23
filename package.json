@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "echo 'Skipping tsc build compiled by vercel serverless handler'",
+    "build": "prisma generate",
     "start": "node dist/index.js",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts"
