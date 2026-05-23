@@ -9,6 +9,8 @@ const auth_1 = require("../middleware/auth");
 const router = (0, express_1.Router)();
 router.get("/colleges", collegeController_1.listColleges);
 router.get("/colleges/compare", collegeController_1.compareColleges);
+router.get("/colleges/:id/reviews", collegeController_1.getCollegeReviews);
+router.post("/colleges/:id/reviews", auth_1.requireAuth, collegeController_1.addCollegeReview);
 router.post("/predict", predictController_1.predictAdmission);
 router.post("/auth/register", authController_1.register);
 router.post("/auth/login", authController_1.login);

@@ -15,6 +15,7 @@ app.use((0, cors_1.default)({
 }));
 app.use(express_1.default.json());
 app.use("/api", routes_1.default);
+app.use("/", routes_1.default);
 app.use((_req, res) => {
     res.status(404).json({ error: "Route not found" });
 });
