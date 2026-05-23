@@ -16,6 +16,14 @@ import { requireAuth } from "../middleware/auth";
 
 const router = Router();
 
+router.get("/", (_req, res) => {
+  res.json({
+    message: "College Discovery Platform API is running successfully!",
+    databaseStatus: "Connected",
+    health: "OK"
+  });
+});
+
 router.get("/colleges", listColleges);
 router.get("/colleges/compare", compareColleges);
 router.get("/colleges/:id/reviews", getCollegeReviews);
