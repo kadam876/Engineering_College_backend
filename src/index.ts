@@ -10,11 +10,8 @@ app.use(
   cors({
     origin: process.env.CORS_ORIGIN?.split(",") ?? true,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.options("*", cors()); // handle preflight for all routes
 app.use(express.json());
 
 app.use("/api", routes);
